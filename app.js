@@ -14,7 +14,8 @@ const fruitsSchema = new mongoose.Schema({
 
 const peopleSchema = new mongoose.Schema({
     name:String,
-    age:Number
+    age:Number,
+    favoriteFruit:fruitsSchema
 })
 
 
@@ -27,10 +28,43 @@ const fruit = new Fruit({
     review:"Pretty solid as a fruit."
 });
 
+const tomato = new Fruit({
+    name:"Tomato",
+    score:3,
+    review:"Neigh"
+})
+tomato.save();
+
 const person = new Person({
     name:"John",
-    age:42
+    age:42,
 });
+person.save();
+
+
+Person.updateOne({name:"John"}, {favoriteFruit:tomato}, function(err){
+    if (err){
+        console.log(err);
+    }
+    else{
+        console.log("Successfully updated John's records");
+    }
+});
+
+// const pineapple = new Fruit({
+//     name:"Pineapple",
+//     score:9,
+//     review:"A great Fruit"
+// })
+// pineapple.save();
+
+// const person = new Person({
+//     name:"Amy",
+//     age:12,
+//     favoriteFruit:pineapple
+// });
+
+
 
 // const kiwi = new Fruit({
 //     name:"Kiwi",
@@ -60,6 +94,7 @@ const person = new Person({
 
 
 // fruit.save();
+// person.save();
 
 Fruit.find(function(err, fruits){
     if (err){
@@ -93,16 +128,16 @@ Fruit.deleteOne({name:"Peach"}, function(err){
 
 })
 
-Person.deleteMany({name:"John"}, function (err){
-    if(err){
-        console.log(err);
-    }
-    else{
-        console.log("Successfully deleted name records");
-    }
-})
-
-// person.save();
+// Person.deleteMany({name:"John"}, function (err){
+//     if(err){
+//         console.log(err);
+//     }
+//     else{
+//         console.log("Successfully deleted name records");
+//     }
+// })
+//
+//
 
 
 
